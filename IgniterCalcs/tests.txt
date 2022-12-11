@@ -1,0 +1,16 @@
+** TEST #1 **
+of: 1
+pressure: 100
+pressureRatio: 6.8
+temp: 1531
+expanRatio: 1.7
+cStar: 1365
+isp: 968
+** TEST #2 **
+of: 2
+pressure: 100
+pressureRatio: 6.8
+temp: 2273
+expanRatio: 1.68
+cStar: 1491
+isp: 1043
