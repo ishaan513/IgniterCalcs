@@ -43,35 +43,6 @@ int main() {
     }
     cout << "See ya later alligator" << endl;
     
-    
-    
-    
-    
-//    ifstream input;
-//    input.open("CEAOutput.txt");
-//    checkFile(input, "CEAOutput.txt");
-//    string str;
-//    double of, pressure, pressureRatio, temp, expanRatio, cStar, isp;
-//
-//    for(int i = 0; i < 16; i++){
-//        getline(input, str);
-//    }
-//    cout << str << endl;
-//    getline(input, str, '=');
-//    getline(input, str, ' ');
-//    input >> pressure;
-//    cout << "Pressure: " << pressure << endl;
-//    getline(input, str);
-//    getline(input, str, '=');
-//    getline(input, str, ' ');
-//    input >> pressureRatio;
-//    cout << "Pressure Ratio: " << pressureRatio << endl;
-//    getline(input, str);
-//    getline(input, str);
-//    getline(input, str, '=');
-//    getline(input, str, ' ');
-//    input >> of;
-//    cout << "OF: " << of << endl;
 
     return 0;
 }

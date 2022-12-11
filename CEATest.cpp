@@ -9,13 +9,6 @@
 #include "CEATest.h"
 
 CEATest::CEATest(){
-    
-//    string str;
-//    input.open(file);
-//    checkFile(input, file);
-//    for(int i = 0; i < 16; i++){
-//        getline(input, str);
-//    }
 }
 
 double CEATest::getVal(string str){
@@ -48,14 +41,29 @@ void CEATest::setVal(string str, double val){
     }
 }
 
+void CEATest::setFuelOx(string str, string prop){
+    bool flag = false;
+    if(str == "fuel" || str == "FUEL"){
+        fuel = prop;
+        flag = true;
+    }
+    else if(str == "oxidizer" || "OXIDIZER"){
+        oxidizer = prop;
+        flag = true;
+    }
+    if(!flag){
+        cout << "SETVALUE: *" << str << "* PARAMETER DOES NOT EXIST" << endl;
+    }
+}
+
 string CEATest::getFuelOx(string str){
     string fuelOx = "NULL";
     bool flag = false;
-    if(str == "fuel"){
+    if(str == "fuel" || str == "FUEL"){
         fuelOx = fuel;
         flag = true;
     }
-    else if(str == "oxidizer"){
+    else if(str == "oxidizer" || str == "OXIDIZER"){
         fuelOx = oxidizer;
         flag = true;
     }
@@ -65,12 +73,12 @@ string CEATest::getFuelOx(string str){
     return fuelOx;
 }
 
-void CEATest::sortByParam(vector<CEATest>& tests, int param){
+void sortByParam(vector<CEATest>& tests, int param){
     switch (param){
         case 1:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).of < tests.at(j+1).of){
+                    if(tests.at(j).getVal("of") < tests.at(j+1).getVal("of")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
@@ -78,16 +86,64 @@ void CEATest::sortByParam(vector<CEATest>& tests, int param){
             cout << "Sorted by OF Ratio" << endl;
             break;
         case 2:
+            for(int i = 0; i < tests.size() - 1; i++){
+                for(int j = 0; j < tests.size() - 1 - i; j++){
+                    if(tests.at(j).getVal("pressure") < tests.at(j+1).getVal("pressure")){
+                        swap(tests.at(j), tests.at(j+1));
+                    }
+                }
+            }
+            cout << "Sorted by Pressure" << endl;
             break;
         case 3:
+            for(int i = 0; i < tests.size() - 1; i++){
+                for(int j = 0; j < tests.size() - 1 - i; j++){
+                    if(tests.at(j).getVal("pressureRatio") < tests.at(j+1).getVal("pressureRatio")){
+                        swap(tests.at(j), tests.at(j+1));
+                    }
+                }
+            }
+            cout << "Sorted by Pressure Ratio" << endl;
             break;
         case 4:
+            for(int i = 0; i < tests.size() - 1; i++){
+                for(int j = 0; j < tests.size() - 1 - i; j++){
+                    if(tests.at(j).getVal("temp") < tests.at(j+1).getVal("temp")){
+                        swap(tests.at(j), tests.at(j+1));
+                    }
+                }
+            }
+            cout << "Sorted by Temperature" << endl;
             break;
         case 5:
+            for(int i = 0; i < tests.size() - 1; i++){
+                for(int j = 0; j < tests.size() - 1 - i; j++){
+                    if(tests.at(j).getVal("expanRatio") < tests.at(j+1).getVal("expanRatio")){
+                        swap(tests.at(j), tests.at(j+1));
+                    }
+                }
+            }
+            cout << "Sorted by Expansion Ratio" << endl;
             break;
         case 6:
+            for(int i = 0; i < tests.size() - 1; i++){
+                for(int j = 0; j < tests.size() - 1 - i; j++){
+                    if(tests.at(j).getVal("cStar") < tests.at(j+1).getVal("cStar")){
+                        swap(tests.at(j), tests.at(j+1));
+                    }
+                }
+            }
+            cout << "Sorted by C*" << endl;
             break;
         case 7:
+            for(int i = 0; i < tests.size() - 1; i++){
+                for(int j = 0; j < tests.size() - 1 - i; j++){
+                    if(tests.at(j).getVal("isp") < tests.at(j+1).getVal("isp")){
+                        swap(tests.at(j), tests.at(j+1));
+                    }
+                }
+            }
+            cout << "Sorted by Isp" << endl;
             break;
     }
 }
@@ -97,6 +153,12 @@ void CEATest::setValues(){
     double numInput;
     bool flag = false;
     cout << "SET YOUR PARAMETERS" << endl;
+    cout << "Enter your fuel: ";
+    cin >> strInput;
+    setFuelOx("fuel", strInput);
+    cout << "Enter your oxidizer: ";
+    cin >> strInput;
+    setFuelOx("oxidizer", strInput);
     while(strInput != "NO" && strInput!= "no"){
         while(!flag){
             cout << "Enter parameter (of, pressure, pressureRatio, temp, expanRatio, cStar, isp): ";
@@ -150,6 +212,8 @@ void CEATest::getValues(){
 }
 
 void CEATest::viewTest(){
+    cout << "Fuel: " << fuel << endl;
+    cout << "Oxidizer: " << oxidizer << endl;
     for(int i = 0; i < SIZE; i++){
         cout << params[i] << ": " << getVal(params[i]) << endl;
     }
@@ -159,6 +223,8 @@ void CEATest::saveTest(int num){
     ofstream output;
     output.open("tests.txt", fstream::app);
     output << "** TEST #" << num << " **" << endl;
+    output << "Fuel: " << fuel << endl;
+    output << "Oxidizer: " << oxidizer << endl;
     for(int i = 0; i < SIZE; i++){
         output << params[i] << ": " << getVal(params[i]) << endl;
     }
@@ -174,6 +240,12 @@ void readTest(vector<CEATest>& vector){
     CEATest test;
     input.open("tests.txt");
     while(getline(input, empty)){
+        getline(input, str, ' ');
+        getline(input, str);
+        test.setFuelOx("fuel", str);
+        getline(input, str, ' ');
+        getline(input, str);
+        test.setFuelOx("oxidizer", str);
         for(int i = 0; i < SIZE; i++){
             getline(input, str, ':');
             getline(input, empty, ' ');
@@ -182,15 +254,11 @@ void readTest(vector<CEATest>& vector){
             test.setVal(str, num);
         }
         vector.push_back(test);
-        getline(input, empty);
     }
 }
 
-//void checkFile(ifstream& input, string str){
-//    if(input){
-//        cout << "good file" << endl;
-//    }
-//    else{
-//        cout << "bad file" << endl;
-//    }
-//}
+void clearTest(){
+    ofstream output;
+    output.open("tests.txt");
+    output.close();
+}
