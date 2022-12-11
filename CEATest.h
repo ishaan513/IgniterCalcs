@@ -37,5 +37,6 @@ public:
 void sortByParam(vector<CEATest>&, int);
 void readTest(vector<CEATest>&);
 void clearTest();
+void runTest();
 
 #endif /* CEATest_h */
