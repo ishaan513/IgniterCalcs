@@ -369,6 +369,7 @@ void runTest(){
                 cout << "Edit existing test" << endl;
                 cout << "************************" << endl;
                 cout << "This don't work yet..." << endl;
+                cout << endl;
                 
                 break;
             // Sort tests
@@ -377,6 +378,7 @@ void runTest(){
                 cout << "Sort by parameter" << endl;
                 cout << "************************" << endl;
                 cout << "This don't work yet..." << endl;
+                cout << endl;
                 
                 break;
             // Clear tests

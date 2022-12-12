@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4264E3E4294552FA00D2BAA2"
-               BuildableName = "IgniterCalcs"
-               BlueprintName = "IgniterCalcs"
-               ReferencedContainer = "container:IgniterCalcs.xcodeproj">
+               BuildableName = "EngineCalcs"
+               BlueprintName = "EngineCalcs"
+               ReferencedContainer = "container:EngineCalcs.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4264E3E4294552FA00D2BAA2"
-            BuildableName = "IgniterCalcs"
-            BlueprintName = "IgniterCalcs"
-            ReferencedContainer = "container:IgniterCalcs.xcodeproj">
+            BuildableName = "EngineCalcs"
+            BlueprintName = "EngineCalcs"
+            ReferencedContainer = "container:EngineCalcs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4264E3E4294552FA00D2BAA2"
-            BuildableName = "IgniterCalcs"
-            BlueprintName = "IgniterCalcs"
-            ReferencedContainer = "container:IgniterCalcs.xcodeproj">
+            BuildableName = "EngineCalcs"
+            BlueprintName = "EngineCalcs"
+            ReferencedContainer = "container:EngineCalcs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
