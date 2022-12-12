@@ -148,7 +148,7 @@ void sortByParam(vector<CEATest>& tests, int param){
     }
 }
 
-void CEATest::setValues(){
+void CEATest::setValues1(){
     string strInput;
     double numInput;
     bool flag = false;
@@ -181,6 +181,24 @@ void CEATest::setValues(){
         cin >> strInput;
         cout << endl;
         flag = false;
+    }
+}
+
+void CEATest::setValues(){
+    string strInput;
+    int numInput;
+    cout << "Enter your fuel: ";
+    cin >> strInput;
+    setFuelOx("fuel", strInput);
+    cout << "Enter your oxidizer: ";
+    cin >> strInput;
+    setFuelOx("oxidizer", strInput);
+    cout << "Enter values for parameters (of, pressure, pressureRatio, temp, expanRatio, cStar, isp)" << endl;
+    cout << "If you wish to omit any values, enter 0" << endl;
+    cout << "Enter values: ";
+    for(int i = 0; i < SIZE; i++){
+        cin >> numInput;
+        setVal(params[i], numInput);
     }
 }
 
@@ -217,6 +235,7 @@ void CEATest::viewTest(){
     for(int i = 0; i < SIZE; i++){
         cout << params[i] << ": " << getVal(params[i]) << endl;
     }
+    cout << endl;
 }
 
 void CEATest::saveTest(int num){
@@ -228,7 +247,7 @@ void CEATest::saveTest(int num){
     for(int i = 0; i < SIZE; i++){
         output << params[i] << ": " << getVal(params[i]) << endl;
     }
-    cout << endl << endl;
+    //cout << endl << endl;
     output.close();
 }
 
@@ -264,7 +283,7 @@ void clearTest(){
     output.close();
 }
 
-void runTest(){
+void runTest1(){
     vector<CEATest> tests;
     string strInput;
     int numInput;
@@ -276,7 +295,7 @@ void runTest(){
         cout << endl;
         if(strInput == "new" || strInput == "NEW"){
             CEATest test;
-            test.setValues();
+            test.setValues1();
             tests.push_back(test);
             test.saveTest(static_cast<int>(tests.size()));
         }
@@ -297,4 +316,101 @@ void runTest(){
         cout << endl;
     }
     cout << "See ya later alligator" << endl;
+}
+
+void runTest(){
+    vector<CEATest> tests;
+    CEATest test;
+    string strInput;
+    int numInput;
+    bool flag = false;
+    readTest(tests);
+    cout << "*** ROCKET THING ***" << endl;
+    while(!flag){
+        displayMenu();
+        cin >> numInput;
+        cout << endl;
+        
+        switch(numInput){
+            // Create test
+            case 1:
+                cout << "Create a new test" << endl;
+                cout << "************************" << endl;
+                test.setValues();
+                tests.push_back(test);
+                test.saveTest(static_cast<int>(tests.size()));
+                cout << "Test created!" << endl;
+                cout << endl;
+                break;
+            // View tests
+            case 2:
+                
+                cout << "View existing tests" << endl;
+                cout << "************************" << endl;
+                if(tests.size() == 0){
+                    cout << "There are no tests to view." << endl;
+                    cout << endl;
+                    break;
+                }
+                else{
+                    cout << "There are " << tests.size() << " tests." << endl;
+                    cout << "Which test would you like to view?" << endl;
+                    cout << "Enter test number: ";
+                    cin >> numInput;
+                    cout << endl;
+                    cout << "** TEST #" << numInput << " **" << endl;
+                    tests.at(numInput - 1).viewTest();
+                }
+                
+                break;
+            // Edit test
+            case 3:
+                
+                cout << "Edit existing test" << endl;
+                cout << "************************" << endl;
+                cout << "This don't work yet..." << endl;
+                
+                break;
+            // Sort tests
+            case 4:
+                
+                cout << "Sort by parameter" << endl;
+                cout << "************************" << endl;
+                cout << "This don't work yet..." << endl;
+                
+                break;
+            // Clear tests
+            case 5:
+                
+                cout << "Are you sure you would like to clear all existing tests?" << endl;
+                cout << "Enter 'yes' or 'no': ";
+                cin >> strInput;
+                if(strInput == "yes" || strInput == "YES"){
+                    clearTest();
+                    cout << "Tests cleared." << endl;
+                }
+                cout << endl;
+                
+                break;
+            // Quit
+            case 6:
+                flag = true;
+                break;
+        }
+        
+        
+    }
+    
+    cout << "See ya later alligator" << endl;
+    
+}
+
+void displayMenu(){
+    cout << "1) Create new test" << endl;
+    cout << "2) View existing tests" << endl;
+    cout << "3) Edit existing test" << endl;
+    cout << "4) Sort by parameter" << endl;
+    cout << "5) Clear existing tests" << endl;
+    cout << "6) Quit" << endl;
+    cout << "Enter command: ";
 }

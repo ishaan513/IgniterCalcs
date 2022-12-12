@@ -29,14 +29,20 @@ public:
     string getFuelOx(string);
     double getVal(string);
     void setVal(string, double);
-    void setValues();
+    void setValues1();
     void getValues();
     void viewTest();
     void saveTest(int);
+    void setValues();
 };
 void sortByParam(vector<CEATest>&, int);
+
 void readTest(vector<CEATest>&);
 void clearTest();
+
+void runTest1();
 void runTest();
+
+void displayMenu();
 
 #endif /* CEATest_h */
