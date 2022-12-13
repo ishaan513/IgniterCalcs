@@ -48,7 +48,7 @@
             BlueprintIdentifier = "4264E3E4294552FA00D2BAA2"
             BuildableName = "EngineCalcs"
             BlueprintName = "EngineCalcs"
-            ReferencedContainer = "container:EngineCalcs.xcodeproj">
+            ReferencedContainer = "container:IgniterCalcs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>

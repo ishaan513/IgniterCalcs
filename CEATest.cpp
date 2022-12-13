@@ -11,6 +11,10 @@
 CEATest::CEATest(){
 }
 
+string CEATest::getParam(int num){
+    return params[num];
+}
+
 double CEATest::getVal(string str){
     double val = -1;
     bool flag = false;
@@ -75,70 +79,70 @@ string CEATest::getFuelOx(string str){
 
 void sortByParam(vector<CEATest>& tests, int param){
     switch (param){
-        case 1:
+        case 0:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("of") < tests.at(j+1).getVal("of")){
+                    if(tests.at(j).getVal("of") > tests.at(j+1).getVal("of")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
             }
             cout << "Sorted by OF Ratio" << endl;
             break;
-        case 2:
+        case 1:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("pressure") < tests.at(j+1).getVal("pressure")){
+                    if(tests.at(j).getVal("pressure") > tests.at(j+1).getVal("pressure")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
             }
             cout << "Sorted by Pressure" << endl;
             break;
-        case 3:
+        case 2:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("pressureRatio") < tests.at(j+1).getVal("pressureRatio")){
+                    if(tests.at(j).getVal("pressureRatio") > tests.at(j+1).getVal("pressureRatio")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
             }
             cout << "Sorted by Pressure Ratio" << endl;
             break;
-        case 4:
+        case 3:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("temp") < tests.at(j+1).getVal("temp")){
+                    if(tests.at(j).getVal("temp") > tests.at(j+1).getVal("temp")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
             }
             cout << "Sorted by Temperature" << endl;
             break;
-        case 5:
+        case 4:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("expanRatio") < tests.at(j+1).getVal("expanRatio")){
+                    if(tests.at(j).getVal("expanRatio") > tests.at(j+1).getVal("expanRatio")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
             }
             cout << "Sorted by Expansion Ratio" << endl;
             break;
-        case 6:
+        case 5:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("cStar") < tests.at(j+1).getVal("cStar")){
+                    if(tests.at(j).getVal("cStar") > tests.at(j+1).getVal("cStar")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
             }
             cout << "Sorted by C*" << endl;
             break;
-        case 7:
+        case 6:
             for(int i = 0; i < tests.size() - 1; i++){
                 for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("isp") < tests.at(j+1).getVal("isp")){
+                    if(tests.at(j).getVal("isp") > tests.at(j+1).getVal("isp")){
                         swap(tests.at(j), tests.at(j+1));
                     }
                 }
@@ -148,45 +152,9 @@ void sortByParam(vector<CEATest>& tests, int param){
     }
 }
 
-void CEATest::setValues1(){
-    string strInput;
-    double numInput;
-    bool flag = false;
-    cout << "SET YOUR PARAMETERS" << endl;
-    cout << "Enter your fuel: ";
-    cin >> strInput;
-    setFuelOx("fuel", strInput);
-    cout << "Enter your oxidizer: ";
-    cin >> strInput;
-    setFuelOx("oxidizer", strInput);
-    while(strInput != "NO" && strInput!= "no"){
-        while(!flag){
-            cout << "Enter parameter (of, pressure, pressureRatio, temp, expanRatio, cStar, isp): ";
-            cin >> strInput;
-            for(int i = 0; i < SIZE; i++){
-                if(strInput == params[i]){
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag){
-                cout << strInput << " does not exist" << endl;
-            }
-        }
-        cout << "Enter " << strInput << " value: ";
-        cin >> numInput;
-        cout << endl;
-        setVal(strInput, numInput);
-        cout << "Do you wish to enter another value? YES or NO: ";
-        cin >> strInput;
-        cout << endl;
-        flag = false;
-    }
-}
-
 void CEATest::setValues(){
     string strInput;
-    int numInput;
+    double numInput;
     cout << "Enter your fuel: ";
     cin >> strInput;
     setFuelOx("fuel", strInput);
@@ -251,6 +219,19 @@ void CEATest::saveTest(int num){
     output.close();
 }
 
+void CEATest::overwriteTest(int num){
+    ofstream output;
+    output.open("tests.txt");
+    output << "** TEST #" << num << " **" << endl;
+    output << "Fuel: " << fuel << endl;
+    output << "Oxidizer: " << oxidizer << endl;
+    for(int i = 0; i < SIZE; i++){
+        output << params[i] << ": " << getVal(params[i]) << endl;
+    }
+    //cout << endl << endl;
+    output.close();
+}
+
 void readTest(vector<CEATest>& vector){
     ifstream input;
     string empty;
@@ -277,54 +258,22 @@ void readTest(vector<CEATest>& vector){
     input.close();
 }
 
-void clearTest(){
+void clearTest(vector<CEATest>& tests){
     ofstream output;
     output.open("tests.txt");
     output.close();
-}
-
-void runTest1(){
-    vector<CEATest> tests;
-    string strInput;
-    int numInput;
-    readTest(tests);
-    cout << "*** ROCKET THING ***" << endl;
-    while(strInput != "STOP" && strInput != "stop"){
-        cout << "Do you wish to enter a new test or view a completed test? Enter 'new' or 'view': ";
-        cin >> strInput;
-        cout << endl;
-        if(strInput == "new" || strInput == "NEW"){
-            CEATest test;
-            test.setValues1();
-            tests.push_back(test);
-            test.saveTest(static_cast<int>(tests.size()));
-        }
-        else if(strInput == "view" || strInput == "VIEW"){
-            if(tests.size() == 0){
-                cout << "There no tests to view." << endl;
-            }
-            else{
-                cout << "There are " << tests.size() << " tests. Which one would you like to view?" << endl;
-                cout << "TEST: ";
-                cin >> numInput;
-                cout << "** TEST #" << numInput << " **" << endl;
-                tests.at(numInput - 1).viewTest();
-            }
-        }
-        cout << "Do you wish to continue? Enter 'stop' or 'go': ";
-        cin >> strInput;
-        cout << endl;
-    }
-    cout << "See ya later alligator" << endl;
+    tests.clear();
 }
 
 void runTest(){
     vector<CEATest> tests;
     CEATest test;
     string strInput;
-    int numInput;
+    int numInput, temp;
     bool flag = false;
+    bool edit = false;
     readTest(tests);
+    
     cout << "*** ROCKET THING ***" << endl;
     while(!flag){
         displayMenu();
@@ -332,6 +281,7 @@ void runTest(){
         cout << endl;
         
         switch(numInput){
+                
             // Create test
             case 1:
                 cout << "Create a new test" << endl;
@@ -342,13 +292,14 @@ void runTest(){
                 cout << "Test created!" << endl;
                 cout << endl;
                 break;
+                
             // View tests
             case 2:
                 
-                cout << "View existing tests" << endl;
+                cout << "View existing test" << endl;
                 cout << "************************" << endl;
                 if(tests.size() == 0){
-                    cout << "There are no tests to view." << endl;
+                    cout << "There are no existing tests to view." << endl;
                     cout << endl;
                     break;
                 }
@@ -363,44 +314,135 @@ void runTest(){
                 }
                 
                 break;
-            // Edit test
+                
+            // View all existing tests
             case 3:
+                
+                cout << "View all existing tests" << endl;
+                cout << "************************" << endl;
+                cout << "There are " << tests.size() << " tests." << endl;
+                cout << endl;
+                for(int i = 0; i < tests.size(); i++){
+                    cout << "** TEST #" << i + 1 << " **" << endl;
+                    tests.at(i).viewTest();
+                }
+                
+                break;
+                
+            // Edit test
+            case 4:
                 
                 cout << "Edit existing test" << endl;
                 cout << "************************" << endl;
-                cout << "This don't work yet..." << endl;
+                if(tests.size() == 0){
+                    cout << "There are no existing tests to edit." << endl;
+                    cout << endl;
+                    break;
+                }
+                cout << "There are " << tests.size() << " tests." << endl;
+                cout << "Which test would you like to edit?" << endl;
+                cout << "Enter test number: ";
+                cin >> temp;
+                cout << endl;
+                tests.at(temp - 1).viewTest();
+                cout << "What parameter would you like to edit?" << endl;
+                cout << "Enter the parameter: ";
+                cin >> strInput;
+                do{
+                    cout << "Enter new value: ";
+                    cin >> numInput;
+                    tests.at(temp - 1).setVal(strInput, numInput);
+                    cout << "If you would like to edit another parameter, enter it now: ";
+                    cin >> strInput;
+                    for(int i = 0; i < SIZE; i++){
+                        if(strInput == test.getParam(i)){
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        edit = true;
+                        break;
+                    }
+                }while(!edit);
+                
+                tests.at(0).overwriteTest(1);
+                for(int i = 1; i < tests.size(); i++){
+                    tests.at(i).saveTest(i + 1);
+                }
                 cout << endl;
                 
                 break;
+                
             // Sort tests
-            case 4:
+            case 5:
                 
                 cout << "Sort by parameter" << endl;
                 cout << "************************" << endl;
-                cout << "This don't work yet..." << endl;
+                if(tests.size() == 0){
+                    cout << "There are no existing tests to sort." << endl;
+                    cout << endl;
+                    break;
+                }
+                cout << "What parameter would you like to sort by?" << endl;
+                cout << "Avaliable parameters: of, pressure, pressureRatio, temp, expanRatio, cStar, isp" << endl;
+                cout << "Enter parameter: ";
+                cin >> strInput;
+                if(strInput == "of"){
+                    sortByParam(tests, OF);
+                }
+                else if(strInput == "pressure"){
+                    sortByParam(tests, PRESSURE);
+                }
+                else if(strInput == "pressureRatio"){
+                    sortByParam(tests, PRESSURERATIO);
+                }
+                else if(strInput == "temp"){
+                    sortByParam(tests, TEMP);
+                }
+                else if(strInput == "expanRatio"){
+                    sortByParam(tests, EXPANRATIO);
+                }
+                else if(strInput == "cStar"){
+                    sortByParam(tests, CSTAR);
+                }
+                else if(strInput == "isp"){
+                    sortByParam(tests, ISP);
+                }
+                else{
+                    cout << strInput << " is not a recognized parameter.";
+                    cout << endl;
+                }
+
+                tests.at(0).overwriteTest(1);
+                for(int i = 1; i < tests.size(); i++){
+                    tests.at(i).saveTest(i + 2);
+                }
                 cout << endl;
                 
                 break;
+                
             // Clear tests
-            case 5:
+            case 6:
                 
                 cout << "Are you sure you would like to clear all existing tests?" << endl;
                 cout << "Enter 'yes' or 'no': ";
                 cin >> strInput;
                 if(strInput == "yes" || strInput == "YES"){
-                    clearTest();
+                    clearTest(tests);
                     cout << "Tests cleared." << endl;
                 }
                 cout << endl;
                 
                 break;
+                
             // Quit
-            case 6:
+            case 7:
+                
                 flag = true;
+                
                 break;
         }
-        
-        
     }
     
     cout << "See ya later alligator" << endl;
@@ -409,10 +451,11 @@ void runTest(){
 
 void displayMenu(){
     cout << "1) Create new test" << endl;
-    cout << "2) View existing tests" << endl;
-    cout << "3) Edit existing test" << endl;
-    cout << "4) Sort by parameter" << endl;
-    cout << "5) Clear existing tests" << endl;
-    cout << "6) Quit" << endl;
+    cout << "2) View existing test" << endl;
+    cout << "3) View all existing tests" << endl;
+    cout << "4) Edit existing test" << endl;
+    cout << "5) Sort by parameter" << endl;
+    cout << "6) Clear existing tests" << endl;
+    cout << "7) Quit" << endl;
     cout << "Enter command: ";
 }
