@@ -25,6 +25,7 @@ private:
     double values[SIZE];
 public:
     CEATest();
+    
     void setFuelOx(string, string);
     string getFuelOx(string);
     
@@ -39,6 +40,11 @@ public:
     void overwriteTest(int);
     
     string getParam(int);
+    
+    void calc();
+    double calcCF();
+    double calcThroatArea();
+    double calcMassFlow();
 };
 void sortByParam(vector<CEATest>&, int);
 

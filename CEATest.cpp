@@ -10,40 +10,7 @@
 
 CEATest::CEATest(){
 }
-
-string CEATest::getParam(int num){
-    return params[num];
-}
-
-double CEATest::getVal(string str){
-    double val = -1;
-    bool flag = false;
-    
-    for(int i = 0; i < SIZE; i++){
-        if(params[i] == str){
-            val = values[i];
-            flag = true;
-        }
-    }
-    if(!flag){
-        cout << "GETVALUE: *" << str << "* PARAMETER DOES NOT EXIST" << endl;
-    }
-    
-    return val;
-}
-
-void CEATest::setVal(string str, double val){
-    bool flag = false;
-    for(int i = 0; i < SIZE; i++){
-        if(params[i] == str){
-            values[i] = val;
-            flag = true;
-        }
-    }
-    if(!flag){
-        cout << "SETVALUE: *" << str << "* PARAMETER DOES NOT EXIST" << endl;
-    }
-}
+/*----------------------------------------------------------------------------------------------------------------*/
 
 void CEATest::setFuelOx(string str, string prop){
     bool flag = false;
@@ -76,6 +43,148 @@ string CEATest::getFuelOx(string str){
     }
     return fuelOx;
 }
+/*----------------------------------------------------------------------------------------------------------------*/
+
+void CEATest::setVal(string str, double val){
+    bool flag = false;
+    for(int i = 0; i < SIZE; i++){
+        if(params[i] == str){
+            values[i] = val;
+            flag = true;
+        }
+    }
+    if(!flag){
+        cout << "SETVALUE: *" << str << "* PARAMETER DOES NOT EXIST" << endl;
+    }
+}
+
+double CEATest::getVal(string str){
+    double val = -1;
+    bool flag = false;
+    
+    for(int i = 0; i < SIZE; i++){
+        if(params[i] == str){
+            val = values[i];
+            flag = true;
+        }
+    }
+    if(!flag){
+        cout << "GETVALUE: *" << str << "* PARAMETER DOES NOT EXIST" << endl;
+    }
+    
+    return val;
+}
+/*----------------------------------------------------------------------------------------------------------------*/
+
+void CEATest::setValues(){
+    string strInput;
+    double numInput;
+    cout << "Enter your fuel: ";
+    cin >> strInput;
+    setFuelOx("fuel", strInput);
+    cout << "Enter your oxidizer: ";
+    cin >> strInput;
+    setFuelOx("oxidizer", strInput);
+    cout << "Enter values for parameters (of, pressure, pressureRatio, temp, expanRatio, cStar, isp)" << endl;
+    cout << "If you wish to omit any values, enter 0" << endl;
+    cout << "Enter values: ";
+    for(int i = 0; i < SIZE; i++){
+        cin >> numInput;
+        if(i == 6){
+            numInput /= 9.8;
+        }
+        setVal(params[i], numInput);
+    }
+}
+
+void CEATest::getValues(){
+    string strInput;
+    bool flag = false;
+    cout << "RETREIVE YOUR PARAMETERS" << endl;
+    while (strInput != "STOP" && strInput != "stop"){
+        while(!flag){
+            cout << "Enter parameter (of, pressure, pressureRatio, temp, expanRatio, cStar, isp): ";
+            cin >> strInput;
+            for(int i = 0; i < SIZE; i++){
+                if(strInput == params[i]){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                cout << strInput << " does not exist" << endl;
+            }
+        }
+        cout << strInput << ": " << getVal(strInput) << endl;
+        cout << endl;
+        cout << "Enter STOP to stop retreiving values or GO to continue: ";
+        cin >> strInput;
+        cout << endl;
+        flag = false;
+    }
+}
+/*----------------------------------------------------------------------------------------------------------------*/
+
+void CEATest::viewTest(){
+    cout << "Fuel: " << fuel << endl;
+    cout << "Oxidizer: " << oxidizer << endl;
+    for(int i = 0; i < SIZE; i++){
+        cout << params[i] << ": " << getVal(params[i]) << endl;
+    }
+    cout << endl;
+}
+
+void CEATest::saveTest(int num){
+    ofstream output;
+    output.open("tests.txt", fstream::app);
+    output << "** TEST #" << num << " **" << endl;
+    output << "Fuel: " << fuel << endl;
+    output << "Oxidizer: " << oxidizer << endl;
+    for(int i = 0; i < SIZE; i++){
+        output << params[i] << ": " << getVal(params[i]) << endl;
+    }
+    output.close();
+}
+
+void CEATest::overwriteTest(int num){
+    ofstream output;
+    output.open("tests.txt");
+    output << "** TEST #" << num << " **" << endl;
+    output << "Fuel: " << fuel << endl;
+    output << "Oxidizer: " << oxidizer << endl;
+    for(int i = 0; i < SIZE; i++){
+        output << params[i] << ": " << getVal(params[i]) << endl;
+    }
+    output.close();
+}
+/*----------------------------------------------------------------------------------------------------------------*/
+
+string CEATest::getParam(int num){
+    return params[num];
+}
+/*----------------------------------------------------------------------------------------------------------------*/
+
+void CEATest::calc(){
+    cout << "This don't work yet..." << endl;
+    cout << endl;
+}
+
+double CEATest::calcCF(){
+    double cf = -1;
+    
+    return cf;
+}
+double CEATest::calcThroatArea(){
+    double throatArea = -1;
+    
+    return throatArea;
+}
+double CEATest::calcMassFlow(){
+    double massFlow = -1;
+    
+    return massFlow;
+}
+/*----------------------------------------------------------------------------------------------------------------*/
 
 void sortByParam(vector<CEATest>& tests, int param){
     switch (param){
@@ -151,86 +260,7 @@ void sortByParam(vector<CEATest>& tests, int param){
             break;
     }
 }
-
-void CEATest::setValues(){
-    string strInput;
-    double numInput;
-    cout << "Enter your fuel: ";
-    cin >> strInput;
-    setFuelOx("fuel", strInput);
-    cout << "Enter your oxidizer: ";
-    cin >> strInput;
-    setFuelOx("oxidizer", strInput);
-    cout << "Enter values for parameters (of, pressure, pressureRatio, temp, expanRatio, cStar, isp)" << endl;
-    cout << "If you wish to omit any values, enter 0" << endl;
-    cout << "Enter values: ";
-    for(int i = 0; i < SIZE; i++){
-        cin >> numInput;
-        setVal(params[i], numInput);
-    }
-}
-
-void CEATest::getValues(){
-    string strInput;
-    bool flag = false;
-    cout << "RETREIVE YOUR PARAMETERS" << endl;
-    while (strInput != "STOP" && strInput != "stop"){
-        while(!flag){
-            cout << "Enter parameter (of, pressure, pressureRatio, temp, expanRatio, cStar, isp): ";
-            cin >> strInput;
-            for(int i = 0; i < SIZE; i++){
-                if(strInput == params[i]){
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag){
-                cout << strInput << " does not exist" << endl;
-            }
-        }
-        cout << strInput << ": " << getVal(strInput) << endl;
-        cout << endl;
-        cout << "Enter STOP to stop retreiving values or GO to continue: ";
-        cin >> strInput;
-        cout << endl;
-        flag = false;
-    }
-}
-
-void CEATest::viewTest(){
-    cout << "Fuel: " << fuel << endl;
-    cout << "Oxidizer: " << oxidizer << endl;
-    for(int i = 0; i < SIZE; i++){
-        cout << params[i] << ": " << getVal(params[i]) << endl;
-    }
-    cout << endl;
-}
-
-void CEATest::saveTest(int num){
-    ofstream output;
-    output.open("tests.txt", fstream::app);
-    output << "** TEST #" << num << " **" << endl;
-    output << "Fuel: " << fuel << endl;
-    output << "Oxidizer: " << oxidizer << endl;
-    for(int i = 0; i < SIZE; i++){
-        output << params[i] << ": " << getVal(params[i]) << endl;
-    }
-    //cout << endl << endl;
-    output.close();
-}
-
-void CEATest::overwriteTest(int num){
-    ofstream output;
-    output.open("tests.txt");
-    output << "** TEST #" << num << " **" << endl;
-    output << "Fuel: " << fuel << endl;
-    output << "Oxidizer: " << oxidizer << endl;
-    for(int i = 0; i < SIZE; i++){
-        output << params[i] << ": " << getVal(params[i]) << endl;
-    }
-    //cout << endl << endl;
-    output.close();
-}
+/*----------------------------------------------------------------------------------------------------------------*/
 
 void readTest(vector<CEATest>& vector){
     ifstream input;
@@ -264,12 +294,14 @@ void clearTest(vector<CEATest>& tests){
     output.close();
     tests.clear();
 }
+/*----------------------------------------------------------------------------------------------------------------*/
 
 void runTest(){
     vector<CEATest> tests;
     CEATest test;
     string strInput;
-    int numInput, temp;
+    double numInput;
+    int apple, orange;
     bool flag = false;
     bool edit = false;
     readTest(tests);
@@ -277,10 +309,10 @@ void runTest(){
     cout << "*** ROCKET THING ***" << endl;
     while(!flag){
         displayMenu();
-        cin >> numInput;
+        cin >> apple;
         cout << endl;
         
-        switch(numInput){
+        switch(apple){
                 
             // Create test
             case 1:
@@ -342,16 +374,19 @@ void runTest(){
                 cout << "There are " << tests.size() << " tests." << endl;
                 cout << "Which test would you like to edit?" << endl;
                 cout << "Enter test number: ";
-                cin >> temp;
+                cin >> orange;
                 cout << endl;
-                tests.at(temp - 1).viewTest();
+                tests.at(orange - 1).viewTest();
                 cout << "What parameter would you like to edit?" << endl;
                 cout << "Enter the parameter: ";
                 cin >> strInput;
                 do{
                     cout << "Enter new value: ";
                     cin >> numInput;
-                    tests.at(temp - 1).setVal(strInput, numInput);
+                    if(strInput == "isp"){
+                        numInput /= 9.8;
+                    }
+                    tests.at(orange - 1).setVal(strInput, numInput);
                     cout << "If you would like to edit another parameter, enter it now: ";
                     cin >> strInput;
                     for(int i = 0; i < SIZE; i++){
@@ -422,8 +457,27 @@ void runTest(){
                 
                 break;
                 
-            // Clear tests
             case 6:
+                
+                cout << "Perform calculations" << endl;
+                cout << "************************" << endl;
+                if(tests.size() == 0){
+                    cout << "There are no existing tests to use for the calculations." << endl;
+                    cout << endl;
+                    break;
+                }
+                cout << "There are " << tests.size() << " tests." << endl;
+                cout << "Which test would you like to use for the calculations?" << endl;
+                cout << "Enter test number: ";
+                cin >> orange;
+                cout << endl;
+                tests.at(orange - 1).viewTest();
+                tests.at(orange - 1).calc();
+                
+                break;
+                
+            // Clear tests
+            case 7:
                 
                 cout << "Are you sure you would like to clear all existing tests?" << endl;
                 cout << "Enter 'yes' or 'no': ";
@@ -437,7 +491,7 @@ void runTest(){
                 break;
                 
             // Quit
-            case 7:
+            case 8:
                 
                 flag = true;
                 
@@ -448,6 +502,7 @@ void runTest(){
     cout << "See ya later alligator" << endl;
     
 }
+/*----------------------------------------------------------------------------------------------------------------*/
 
 void displayMenu(){
     cout << "1) Create new test" << endl;
@@ -455,7 +510,8 @@ void displayMenu(){
     cout << "3) View all existing tests" << endl;
     cout << "4) Edit existing test" << endl;
     cout << "5) Sort by parameter" << endl;
-    cout << "6) Clear existing tests" << endl;
-    cout << "7) Quit" << endl;
+    cout << "6) Perform calculations" << endl;
+    cout << "7) Clear existing tests" << endl;
+    cout << "8) Quit" << endl;
     cout << "Enter command: ";
 }
