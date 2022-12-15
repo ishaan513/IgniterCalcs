@@ -95,6 +95,7 @@ void CEATest::setValues(){
         }
         setVal(params[i], numInput);
     }
+    getline(cin, strInput);
 }
 
 void CEATest::getValues(){
@@ -304,6 +305,7 @@ void runTest(){
     int apple, orange;
     bool flag = false;
     bool edit = false;
+    bool grape = false;
     readTest(tests);
     
     cout << "*** ROCKET THING ***" << endl;
@@ -340,6 +342,11 @@ void runTest(){
                     cout << "Which test would you like to view?" << endl;
                     cout << "Enter test number: ";
                     cin >> numInput;
+                    if(numInput > tests.size() || numInput <= 0){
+                        cout << "TEST #" << numInput << " does not exist." << endl;
+                        cout << endl;
+                        break;
+                    }
                     cout << endl;
                     cout << "** TEST #" << numInput << " **" << endl;
                     tests.at(numInput - 1).viewTest();
@@ -375,11 +382,28 @@ void runTest(){
                 cout << "Which test would you like to edit?" << endl;
                 cout << "Enter test number: ";
                 cin >> orange;
+                if(orange > tests.size() || orange <= 0){
+                    cout << "TEST #" << orange << " does not exist." << endl;
+                    cout << endl;
+                    break;
+                }
                 cout << endl;
                 tests.at(orange - 1).viewTest();
                 cout << "What parameter would you like to edit?" << endl;
                 cout << "Enter the parameter: ";
                 cin >> strInput;
+                
+                for(int i = 0; i < SIZE; i++){
+                    if(test.getParam(i) == strInput){
+                        grape = true;
+                    }
+                }
+                if(!grape){
+                    cout << strInput << " is not a recognized parameter." << endl;
+                    cout << endl;
+                    break;
+                }
+                
                 do{
                     cout << "Enter new value: ";
                     cin >> numInput;
@@ -470,6 +494,11 @@ void runTest(){
                 cout << "Which test would you like to use for the calculations?" << endl;
                 cout << "Enter test number: ";
                 cin >> orange;
+                if(orange > tests.size() || orange <= 0){
+                    cout << "TEST #" << orange << " does not exist." << endl;
+                    cout << endl;
+                    break;
+                }
                 cout << endl;
                 tests.at(orange - 1).viewTest();
                 tests.at(orange - 1).calc();
