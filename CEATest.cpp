@@ -23,7 +23,7 @@ void CEATest::setFuelOx(string str, string prop){
         flag = true;
     }
     if(!flag){
-        cout << "SETVALUE: *" << str << "* PARAMETER DOES NOT EXIST" << endl;
+        cout << "SETFUELOX: *" << str << "* PARAMETER DOES NOT EXIST" << endl;
     }
 }
 
@@ -98,32 +98,32 @@ void CEATest::setValues(){
     getline(cin, strInput);
 }
 
-void CEATest::getValues(){
-    string strInput;
-    bool flag = false;
-    cout << "RETREIVE YOUR PARAMETERS" << endl;
-    while (strInput != "STOP" && strInput != "stop"){
-        while(!flag){
-            cout << "Enter parameter (of, pressure, pressureRatio, temp, expanRatio, cStar, isp): ";
-            cin >> strInput;
-            for(int i = 0; i < SIZE; i++){
-                if(strInput == params[i]){
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag){
-                cout << strInput << " does not exist" << endl;
-            }
-        }
-        cout << strInput << ": " << getVal(strInput) << endl;
-        cout << endl;
-        cout << "Enter STOP to stop retreiving values or GO to continue: ";
-        cin >> strInput;
-        cout << endl;
-        flag = false;
-    }
-}
+//void CEATest::getValues(){
+//    string strInput;
+//    bool flag = false;
+//    cout << "RETREIVE YOUR PARAMETERS" << endl;
+//    while (strInput != "STOP" && strInput != "stop"){
+//        while(!flag){
+//            cout << "Enter parameter (of, pressure, pressureRatio, temp, expanRatio, cStar, isp): ";
+//            cin >> strInput;
+//            for(int i = 0; i < SIZE; i++){
+//                if(strInput == params[i]){
+//                    flag = true;
+//                    break;
+//                }
+//            }
+//            if(!flag){
+//                cout << strInput << " does not exist" << endl;
+//            }
+//        }
+//        cout << strInput << ": " << getVal(strInput) << endl;
+//        cout << endl;
+//        cout << "Enter STOP to stop retreiving values or GO to continue: ";
+//        cin >> strInput;
+//        cout << endl;
+//        flag = false;
+//    }
+//}
 /*----------------------------------------------------------------------------------------------------------------*/
 
 void CEATest::viewTest(){
@@ -147,6 +147,18 @@ void CEATest::saveTest(int num){
     output.close();
 }
 
+//void CEATest::saveTestCSV(int num){
+//    ofstream output;
+//    output.open("calcs.csv", fstream::app);
+//    output << "** TEST #" << num << " **, \n";
+//    output << "Fuel: " << fuel << endl;
+//    output << "Oxidizer: " << oxidizer << endl;
+//    for(int i = 0; i < SIZE; i++){
+//        output << params[i] << ": " << getVal(params[i]) << endl;
+//    }
+//    output.close();
+//}
+
 void CEATest::overwriteTest(int num){
     ofstream output;
     output.open("tests.txt");
@@ -166,101 +178,146 @@ string CEATest::getParam(int num){
 /*----------------------------------------------------------------------------------------------------------------*/
 
 void CEATest::calc(){
-    cout << "This don't work yet..." << endl;
+    propVals[OX] = getVal("of");
+    propVals[FUEL] = 1;
+    cout << "Fuel Mass Flow: " << calcMassFlow(propVals[FUEL]) << " lb/in^3" << endl;
+    cout << "Oxidizer Mass Flow: " << calcMassFlow(propVals[OX]) << " lb/in^3" << endl;
+    cout << "Fuel Orifice Diameter: " << 2 * sqrt(calcOrificeArea(FUEL) / 3.14) << " in" << endl;
+    cout << "Oxidizer Orifice Diameter: " << 2 * sqrt(calcOrificeArea(OX) / 3.14) << " in" << endl;
+    //cout << "This don't work yet..." << endl;
     cout << endl;
 }
 
-double CEATest::calcCF(){
-    double cf = -1;
+double CEATest::calcMassFlow(int prop){
+    double massFlow = -1;
     
-    return cf;
+    massFlow = thrust / values[ISP];
+    massFlow /= (propVals[OX] + 1);
+    massFlow *= prop;
+    
+    return massFlow;
+}
+
+double CEATest::calcOrificeArea(int prop){
+    double orificeArea = -1;
+    
+    orificeArea = calcMassFlow(propVals[prop]) / (cd * sqrt(2.0 * density[prop] * getVal("pressure")));
+    
+    return orificeArea;
 }
 double CEATest::calcThroatArea(){
     double throatArea = -1;
     
     return throatArea;
 }
-double CEATest::calcMassFlow(){
-    double massFlow = -1;
-    
-    return massFlow;
-}
 /*----------------------------------------------------------------------------------------------------------------*/
 
-void sortByParam(vector<CEATest>& tests, int param){
-    switch (param){
-        case 0:
-            for(int i = 0; i < tests.size() - 1; i++){
-                for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("of") > tests.at(j+1).getVal("of")){
-                        swap(tests.at(j), tests.at(j+1));
-                    }
+bool CEATest::checkParam(string str){
+    bool flag = false;
+    
+    for(int i = 0; i < SIZE; i++){
+        if(params[i] == str){
+            flag = true;
+        }
+    }
+    if(!flag){
+        cout << str << " is not a recognized parameter." << endl;
+        //cout << endl;
+    }
+    
+    return flag;
+}
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+void sortByParam2(vector<CEATest>& tests, string param){
+    CEATest test;
+    if(test.checkParam(param)){
+        for(int i = 0; i < tests.size() - 1; i++){
+            for(int j = 0; j < tests.size() - 1 - i; j++){
+                if(tests.at(j).getVal(param) > tests.at(j+1).getVal(param)){
+                    swap(tests.at(j), tests.at(j+1));
                 }
             }
-            cout << "Sorted by OF Ratio" << endl;
-            break;
-        case 1:
-            for(int i = 0; i < tests.size() - 1; i++){
-                for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("pressure") > tests.at(j+1).getVal("pressure")){
-                        swap(tests.at(j), tests.at(j+1));
-                    }
-                }
-            }
-            cout << "Sorted by Pressure" << endl;
-            break;
-        case 2:
-            for(int i = 0; i < tests.size() - 1; i++){
-                for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("pressureRatio") > tests.at(j+1).getVal("pressureRatio")){
-                        swap(tests.at(j), tests.at(j+1));
-                    }
-                }
-            }
-            cout << "Sorted by Pressure Ratio" << endl;
-            break;
-        case 3:
-            for(int i = 0; i < tests.size() - 1; i++){
-                for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("temp") > tests.at(j+1).getVal("temp")){
-                        swap(tests.at(j), tests.at(j+1));
-                    }
-                }
-            }
-            cout << "Sorted by Temperature" << endl;
-            break;
-        case 4:
-            for(int i = 0; i < tests.size() - 1; i++){
-                for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("expanRatio") > tests.at(j+1).getVal("expanRatio")){
-                        swap(tests.at(j), tests.at(j+1));
-                    }
-                }
-            }
-            cout << "Sorted by Expansion Ratio" << endl;
-            break;
-        case 5:
-            for(int i = 0; i < tests.size() - 1; i++){
-                for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("cStar") > tests.at(j+1).getVal("cStar")){
-                        swap(tests.at(j), tests.at(j+1));
-                    }
-                }
-            }
-            cout << "Sorted by C*" << endl;
-            break;
-        case 6:
-            for(int i = 0; i < tests.size() - 1; i++){
-                for(int j = 0; j < tests.size() - 1 - i; j++){
-                    if(tests.at(j).getVal("isp") > tests.at(j+1).getVal("isp")){
-                        swap(tests.at(j), tests.at(j+1));
-                    }
-                }
-            }
-            cout << "Sorted by Isp" << endl;
-            break;
+        }
+        cout << "Sorted by " << param << endl;
     }
 }
+
+//void sortByParam(vector<CEATest>& tests, int param){
+//    switch (param){
+//        case 0:
+//            for(int i = 0; i < tests.size() - 1; i++){
+//                for(int j = 0; j < tests.size() - 1 - i; j++){
+//                    if(tests.at(j).getVal("of") > tests.at(j+1).getVal("of")){
+//                        swap(tests.at(j), tests.at(j+1));
+//                    }
+//                }
+//            }
+//            cout << "Sorted by OF Ratio" << endl;
+//            break;
+//        case 1:
+//            for(int i = 0; i < tests.size() - 1; i++){
+//                for(int j = 0; j < tests.size() - 1 - i; j++){
+//                    if(tests.at(j).getVal("pressure") > tests.at(j+1).getVal("pressure")){
+//                        swap(tests.at(j), tests.at(j+1));
+//                    }
+//                }
+//            }
+//            cout << "Sorted by Pressure" << endl;
+//            break;
+//        case 2:
+//            for(int i = 0; i < tests.size() - 1; i++){
+//                for(int j = 0; j < tests.size() - 1 - i; j++){
+//                    if(tests.at(j).getVal("pressureRatio") > tests.at(j+1).getVal("pressureRatio")){
+//                        swap(tests.at(j), tests.at(j+1));
+//                    }
+//                }
+//            }
+//            cout << "Sorted by Pressure Ratio" << endl;
+//            break;
+//        case 3:
+//            for(int i = 0; i < tests.size() - 1; i++){
+//                for(int j = 0; j < tests.size() - 1 - i; j++){
+//                    if(tests.at(j).getVal("temp") > tests.at(j+1).getVal("temp")){
+//                        swap(tests.at(j), tests.at(j+1));
+//                    }
+//                }
+//            }
+//            cout << "Sorted by Temperature" << endl;
+//            break;
+//        case 4:
+//            for(int i = 0; i < tests.size() - 1; i++){
+//                for(int j = 0; j < tests.size() - 1 - i; j++){
+//                    if(tests.at(j).getVal("expanRatio") > tests.at(j+1).getVal("expanRatio")){
+//                        swap(tests.at(j), tests.at(j+1));
+//                    }
+//                }
+//            }
+//            cout << "Sorted by Expansion Ratio" << endl;
+//            break;
+//        case 5:
+//            for(int i = 0; i < tests.size() - 1; i++){
+//                for(int j = 0; j < tests.size() - 1 - i; j++){
+//                    if(tests.at(j).getVal("cStar") > tests.at(j+1).getVal("cStar")){
+//                        swap(tests.at(j), tests.at(j+1));
+//                    }
+//                }
+//            }
+//            cout << "Sorted by C*" << endl;
+//            break;
+//        case 6:
+//            for(int i = 0; i < tests.size() - 1; i++){
+//                for(int j = 0; j < tests.size() - 1 - i; j++){
+//                    if(tests.at(j).getVal("isp") > tests.at(j+1).getVal("isp")){
+//                        swap(tests.at(j), tests.at(j+1));
+//                    }
+//                }
+//            }
+//            cout << "Sorted by Isp" << endl;
+//            break;
+//    }
+//}
 /*----------------------------------------------------------------------------------------------------------------*/
 
 void readTest(vector<CEATest>& vector){
@@ -300,12 +357,12 @@ void clearTest(vector<CEATest>& tests){
 void runTest(){
     vector<CEATest> tests;
     CEATest test;
-    string strInput;
+    string strInput, prop;
     double numInput;
     int apple, orange;
-    bool flag = false;
-    bool edit = false;
-    bool grape = false;
+    bool flag = false, edit = false, grape = false, melon = false;
+//    bool edit = false;
+//    bool grape = false, melon = false;
     readTest(tests);
     
     cout << "*** ROCKET THING ***" << endl;
@@ -393,33 +450,64 @@ void runTest(){
                 cout << "Enter the parameter: ";
                 cin >> strInput;
                 
-                for(int i = 0; i < SIZE; i++){
-                    if(test.getParam(i) == strInput){
-                        grape = true;
+                if(strInput == "fuel" || strInput == "oxidizer"){
+                    melon = true;
+                }
+                if(!melon){
+                    
+                    // integrate checkParam()
+                    for(int i = 0; i < SIZE; i++){
+                        if(test.getParam(i) == strInput){
+                            grape = true;
+                        }
+                    }
+                    if(!grape){
+                        cout << strInput << " is not a recognized parameter." << endl;
+                        cout << endl;
+                        break;
                     }
                 }
-                if(!grape){
-                    cout << strInput << " is not a recognized parameter." << endl;
-                    cout << endl;
-                    break;
-                }
+                
+                // pretty sure this is broken. needs to not go into loop if param is not recognized
+                // ok. it might not be broken. not sure. figure out how to integrate checkParam() everywhere it needs to be ;)
                 
                 do{
                     cout << "Enter new value: ";
-                    cin >> numInput;
-                    if(strInput == "isp"){
-                        numInput /= 9.8;
+                    if(melon){
+                        cin >> prop;
+                        tests.at(orange - 1).setFuelOx(strInput, prop);
                     }
-                    tests.at(orange - 1).setVal(strInput, numInput);
+                    else{
+                        cin >> numInput;
+                        if(strInput == "isp"){
+                            numInput /= 9.8;
+                        }
+                        tests.at(orange - 1).setVal(strInput, numInput);
+                    }
                     cout << "If you would like to edit another parameter, enter it now: ";
                     cin >> strInput;
-                    for(int i = 0; i < SIZE; i++){
-                        if(strInput == test.getParam(i)){
-                            flag = true;
-                            break;
+                    melon = flag = edit = false;
+//                    flag = false;
+//                    edit = false;
+                    if(strInput == "fuel" || strInput == "oxidizer"){
+                        melon = true;
+                    }
+                    if(!melon){
+                        for(int i = 0; i < SIZE; i++){
+                            if(test.getParam(i) == strInput){
+                                flag = true;
+                                break;
+                            }
                         }
                     }
-                    if(!flag){
+                    
+//                    for(int i = 0; i < SIZE; i++){
+//                        if(strInput == test.getParam(i)){
+//                            flag = true;
+//                            break;
+//                        }
+//                    }
+                    if(!melon && !flag){
                         edit = true;
                         break;
                     }
@@ -447,40 +535,56 @@ void runTest(){
                 cout << "Avaliable parameters: of, pressure, pressureRatio, temp, expanRatio, cStar, isp" << endl;
                 cout << "Enter parameter: ";
                 cin >> strInput;
-                if(strInput == "of"){
-                    sortByParam(tests, OF);
-                }
-                else if(strInput == "pressure"){
-                    sortByParam(tests, PRESSURE);
-                }
-                else if(strInput == "pressureRatio"){
-                    sortByParam(tests, PRESSURERATIO);
-                }
-                else if(strInput == "temp"){
-                    sortByParam(tests, TEMP);
-                }
-                else if(strInput == "expanRatio"){
-                    sortByParam(tests, EXPANRATIO);
-                }
-                else if(strInput == "cStar"){
-                    sortByParam(tests, CSTAR);
-                }
-                else if(strInput == "isp"){
-                    sortByParam(tests, ISP);
-                }
-                else{
-                    cout << strInput << " is not a recognized parameter.";
-                    cout << endl;
-                }
+                
+//                for(int i = 0; i < SIZE; i++){
+//                    if(test.getParam(i) == strInput){
+//                        grape = true;
+//                    }
+//                }
+//                if(!grape){
+//                    cout << strInput << " is not a recognized parameter." << endl;
+//                    cout << endl;
+//                    break;
+//                }
+                
+                sortByParam2(tests, strInput);
+                
+                
+//                if(strInput == "of"){
+//                    sortByParam(tests, OF);
+//                }
+//                else if(strInput == "pressure"){
+//                    sortByParam(tests, PRESSURE);
+//                }
+//                else if(strInput == "pressureRatio"){
+//                    sortByParam(tests, PRESSURERATIO);
+//                }
+//                else if(strInput == "temp"){
+//                    sortByParam(tests, TEMP);
+//                }
+//                else if(strInput == "expanRatio"){
+//                    sortByParam(tests, EXPANRATIO);
+//                }
+//                else if(strInput == "cStar"){
+//                    sortByParam(tests, CSTAR);
+//                }
+//                else if(strInput == "isp"){
+//                    sortByParam(tests, ISP);
+//                }
+//                else{
+//                    cout << strInput << " is not a recognized parameter.";
+//                    cout << endl;
+//                }
 
                 tests.at(0).overwriteTest(1);
                 for(int i = 1; i < tests.size(); i++){
-                    tests.at(i).saveTest(i + 2);
+                    tests.at(i).saveTest(i + 1);
                 }
                 cout << endl;
                 
                 break;
                 
+            // Perform calculations
             case 6:
                 
                 cout << "Perform calculations" << endl;

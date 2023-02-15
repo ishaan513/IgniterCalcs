@@ -1,0 +1,573 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4264E404294B9CE200D2BAA2 /* EngineCalcAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4264E403294B9CE200D2BAA2 /* EngineCalcAppApp.swift */; };
+		4264E406294B9CE200D2BAA2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4264E405294B9CE200D2BAA2 /* ContentView.swift */; };
+		4264E408294B9CE400D2BAA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4264E407294B9CE400D2BAA2 /* Assets.xcassets */; };
+		4264E40B294B9CE400D2BAA2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4264E40A294B9CE400D2BAA2 /* Preview Assets.xcassets */; };
+		4264E416294B9CE500D2BAA2 /* EngineCalcAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4264E415294B9CE500D2BAA2 /* EngineCalcAppTests.swift */; };
+		4264E420294B9CE500D2BAA2 /* EngineCalcAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4264E41F294B9CE500D2BAA2 /* EngineCalcAppUITests.swift */; };
+		4264E422294B9CE500D2BAA2 /* EngineCalcAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4264E421294B9CE500D2BAA2 /* EngineCalcAppUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4264E412294B9CE500D2BAA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4264E3F8294B9CE200D2BAA2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4264E3FF294B9CE200D2BAA2;
+			remoteInfo = EngineCalcApp;
+		};
+		4264E41C294B9CE500D2BAA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4264E3F8294B9CE200D2BAA2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4264E3FF294B9CE200D2BAA2;
+			remoteInfo = EngineCalcApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4264E400294B9CE200D2BAA2 /* EngineCalcApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EngineCalcApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4264E403294B9CE200D2BAA2 /* EngineCalcAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineCalcAppApp.swift; sourceTree = "<group>"; };
+		4264E405294B9CE200D2BAA2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4264E407294B9CE400D2BAA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4264E40A294B9CE400D2BAA2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4264E40C294B9CE500D2BAA2 /* EngineCalcApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EngineCalcApp.entitlements; sourceTree = "<group>"; };
+		4264E411294B9CE500D2BAA2 /* EngineCalcAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngineCalcAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4264E415294B9CE500D2BAA2 /* EngineCalcAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineCalcAppTests.swift; sourceTree = "<group>"; };
+		4264E41B294B9CE500D2BAA2 /* EngineCalcAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngineCalcAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4264E41F294B9CE500D2BAA2 /* EngineCalcAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineCalcAppUITests.swift; sourceTree = "<group>"; };
+		4264E421294B9CE500D2BAA2 /* EngineCalcAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineCalcAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4264E3FD294B9CE200D2BAA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4264E40E294B9CE500D2BAA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4264E418294B9CE500D2BAA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4264E3F7294B9CE200D2BAA2 = {
+			isa = PBXGroup;
+			children = (
+				4264E402294B9CE200D2BAA2 /* EngineCalcApp */,
+				4264E414294B9CE500D2BAA2 /* EngineCalcAppTests */,
+				4264E41E294B9CE500D2BAA2 /* EngineCalcAppUITests */,
+				4264E401294B9CE200D2BAA2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4264E401294B9CE200D2BAA2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4264E400294B9CE200D2BAA2 /* EngineCalcApp.app */,
+				4264E411294B9CE500D2BAA2 /* EngineCalcAppTests.xctest */,
+				4264E41B294B9CE500D2BAA2 /* EngineCalcAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4264E402294B9CE200D2BAA2 /* EngineCalcApp */ = {
+			isa = PBXGroup;
+			children = (
+				4264E403294B9CE200D2BAA2 /* EngineCalcAppApp.swift */,
+				4264E405294B9CE200D2BAA2 /* ContentView.swift */,
+				4264E407294B9CE400D2BAA2 /* Assets.xcassets */,
+				4264E40C294B9CE500D2BAA2 /* EngineCalcApp.entitlements */,
+				4264E409294B9CE400D2BAA2 /* Preview Content */,
+			);
+			path = EngineCalcApp;
+			sourceTree = "<group>";
+		};
+		4264E409294B9CE400D2BAA2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4264E40A294B9CE400D2BAA2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4264E414294B9CE500D2BAA2 /* EngineCalcAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				4264E415294B9CE500D2BAA2 /* EngineCalcAppTests.swift */,
+			);
+			path = EngineCalcAppTests;
+			sourceTree = "<group>";
+		};
+		4264E41E294B9CE500D2BAA2 /* EngineCalcAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4264E41F294B9CE500D2BAA2 /* EngineCalcAppUITests.swift */,
+				4264E421294B9CE500D2BAA2 /* EngineCalcAppUITestsLaunchTests.swift */,
+			);
+			path = EngineCalcAppUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4264E3FF294B9CE200D2BAA2 /* EngineCalcApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4264E425294B9CE500D2BAA2 /* Build configuration list for PBXNativeTarget "EngineCalcApp" */;
+			buildPhases = (
+				4264E3FC294B9CE200D2BAA2 /* Sources */,
+				4264E3FD294B9CE200D2BAA2 /* Frameworks */,
+				4264E3FE294B9CE200D2BAA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EngineCalcApp;
+			productName = EngineCalcApp;
+			productReference = 4264E400294B9CE200D2BAA2 /* EngineCalcApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4264E410294B9CE500D2BAA2 /* EngineCalcAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4264E428294B9CE500D2BAA2 /* Build configuration list for PBXNativeTarget "EngineCalcAppTests" */;
+			buildPhases = (
+				4264E40D294B9CE500D2BAA2 /* Sources */,
+				4264E40E294B9CE500D2BAA2 /* Frameworks */,
+				4264E40F294B9CE500D2BAA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4264E413294B9CE500D2BAA2 /* PBXTargetDependency */,
+			);
+			name = EngineCalcAppTests;
+			productName = EngineCalcAppTests;
+			productReference = 4264E411294B9CE500D2BAA2 /* EngineCalcAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4264E41A294B9CE500D2BAA2 /* EngineCalcAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4264E42B294B9CE500D2BAA2 /* Build configuration list for PBXNativeTarget "EngineCalcAppUITests" */;
+			buildPhases = (
+				4264E417294B9CE500D2BAA2 /* Sources */,
+				4264E418294B9CE500D2BAA2 /* Frameworks */,
+				4264E419294B9CE500D2BAA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4264E41D294B9CE500D2BAA2 /* PBXTargetDependency */,
+			);
+			name = EngineCalcAppUITests;
+			productName = EngineCalcAppUITests;
+			productReference = 4264E41B294B9CE500D2BAA2 /* EngineCalcAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4264E3F8294B9CE200D2BAA2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					4264E3FF294B9CE200D2BAA2 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					4264E410294B9CE500D2BAA2 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 4264E3FF294B9CE200D2BAA2;
+					};
+					4264E41A294B9CE500D2BAA2 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 4264E3FF294B9CE200D2BAA2;
+					};
+				};
+			};
+			buildConfigurationList = 4264E3FB294B9CE200D2BAA2 /* Build configuration list for PBXProject "EngineCalcApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4264E3F7294B9CE200D2BAA2;
+			productRefGroup = 4264E401294B9CE200D2BAA2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4264E3FF294B9CE200D2BAA2 /* EngineCalcApp */,
+				4264E410294B9CE500D2BAA2 /* EngineCalcAppTests */,
+				4264E41A294B9CE500D2BAA2 /* EngineCalcAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4264E3FE294B9CE200D2BAA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4264E40B294B9CE400D2BAA2 /* Preview Assets.xcassets in Resources */,
+				4264E408294B9CE400D2BAA2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4264E40F294B9CE500D2BAA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4264E419294B9CE500D2BAA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4264E3FC294B9CE200D2BAA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4264E406294B9CE200D2BAA2 /* ContentView.swift in Sources */,
+				4264E404294B9CE200D2BAA2 /* EngineCalcAppApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4264E40D294B9CE500D2BAA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4264E416294B9CE500D2BAA2 /* EngineCalcAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4264E417294B9CE500D2BAA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4264E420294B9CE500D2BAA2 /* EngineCalcAppUITests.swift in Sources */,
+				4264E422294B9CE500D2BAA2 /* EngineCalcAppUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4264E413294B9CE500D2BAA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4264E3FF294B9CE200D2BAA2 /* EngineCalcApp */;
+			targetProxy = 4264E412294B9CE500D2BAA2 /* PBXContainerItemProxy */;
+		};
+		4264E41D294B9CE500D2BAA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4264E3FF294B9CE200D2BAA2 /* EngineCalcApp */;
+			targetProxy = 4264E41C294B9CE500D2BAA2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4264E423294B9CE500D2BAA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4264E424294B9CE500D2BAA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		4264E426294B9CE500D2BAA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EngineCalcApp/EngineCalcApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"EngineCalcApp/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Rockets.EngineCalcApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4264E427294B9CE500D2BAA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EngineCalcApp/EngineCalcApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"EngineCalcApp/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Rockets.EngineCalcApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4264E429294B9CE500D2BAA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Rockets.EngineCalcAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EngineCalcApp.app/Contents/MacOS/EngineCalcApp";
+			};
+			name = Debug;
+		};
+		4264E42A294B9CE500D2BAA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Rockets.EngineCalcAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EngineCalcApp.app/Contents/MacOS/EngineCalcApp";
+			};
+			name = Release;
+		};
+		4264E42C294B9CE500D2BAA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Rockets.EngineCalcAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = EngineCalcApp;
+			};
+			name = Debug;
+		};
+		4264E42D294B9CE500D2BAA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Rockets.EngineCalcAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = EngineCalcApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4264E3FB294B9CE200D2BAA2 /* Build configuration list for PBXProject "EngineCalcApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4264E423294B9CE500D2BAA2 /* Debug */,
+				4264E424294B9CE500D2BAA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4264E425294B9CE500D2BAA2 /* Build configuration list for PBXNativeTarget "EngineCalcApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4264E426294B9CE500D2BAA2 /* Debug */,
+				4264E427294B9CE500D2BAA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4264E428294B9CE500D2BAA2 /* Build configuration list for PBXNativeTarget "EngineCalcAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4264E429294B9CE500D2BAA2 /* Debug */,
+				4264E42A294B9CE500D2BAA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4264E42B294B9CE500D2BAA2 /* Build configuration list for PBXNativeTarget "EngineCalcAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4264E42C294B9CE500D2BAA2 /* Debug */,
+				4264E42D294B9CE500D2BAA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4264E3F8294B9CE200D2BAA2 /* Project object */;
+}

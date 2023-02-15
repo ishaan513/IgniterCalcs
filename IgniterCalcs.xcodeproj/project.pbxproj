@@ -30,6 +30,7 @@
 		4264E3F02945854A00D2BAA2 /* CEATest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEATest.h; sourceTree = "<group>"; };
 		4264E3F12945855800D2BAA2 /* CEATest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CEATest.cpp; sourceTree = "<group>"; };
 		4264E3F62946F35C00D2BAA2 /* tests.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = tests.txt; path = IgniterCalcs/tests.txt; sourceTree = "<group>"; };
+		4264E42E294C3B7900D2BAA2 /* calcs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = calcs.csv; path = IgniterCalcs/calcs.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +47,7 @@
 		4264E3DC294552FA00D2BAA2 = {
 			isa = PBXGroup;
 			children = (
+				4264E42E294C3B7900D2BAA2 /* calcs.csv */,
 				4264E3F62946F35C00D2BAA2 /* tests.txt */,
 				4264E3F12945855800D2BAA2 /* CEATest.cpp */,
 				4264E3F02945854A00D2BAA2 /* CEATest.h */,
@@ -105,7 +107,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4264E3E0294552FA00D2BAA2 /* Build configuration list for PBXProject "EngineCalcs" */;
+			buildConfigurationList = 4264E3E0294552FA00D2BAA2 /* Build configuration list for PBXProject "IgniterCalcs" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -264,7 +266,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4264E3E0294552FA00D2BAA2 /* Build configuration list for PBXProject "EngineCalcs" */ = {
+		4264E3E0294552FA00D2BAA2 /* Build configuration list for PBXProject "IgniterCalcs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4264E3EA294552FA00D2BAA2 /* Debug */,

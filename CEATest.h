@@ -11,10 +11,12 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <cmath>
 using namespace std;
 
 const int SIZE = 7;
 enum param {OF, PRESSURE, PRESSURERATIO, TEMP, EXPANRATIO, CSTAR, ISP};
+enum prop {OX, FUEL};
 void checkFile(ifstream&, string);
 class CEATest{
 private:
@@ -23,6 +25,11 @@ private:
     double of, pressure, pressureRatio, temp, expanRatio, cStar, isp;
     string params[SIZE] = {"of", "pressure", "pressureRatio", "temp", "expanRatio", "cStar", "isp"};
     double values[SIZE];
+    double propVals[2];
+    int thrust = 20; // lbf
+    double pNO2 = 0.04, pETH = 0.03; // lb/in^3
+    double density[2] = {pNO2, pETH};
+    double cd = 0.82; // accepted value
 public:
     CEATest();
     
@@ -37,15 +44,21 @@ public:
  
     void viewTest();
     void saveTest(int);
+    void saveTestCSV(int);
     void overwriteTest(int);
     
     string getParam(int);
     
     void calc();
-    double calcCF();
+    double calcMassFlow(int);
+    double calcOrificeArea(int);
+    double calcOrificeDiameter();
     double calcThroatArea();
-    double calcMassFlow();
+    
+    bool checkParam(string);
 };
+
+void sortByParam2(vector<CEATest>&, string);
 void sortByParam(vector<CEATest>&, int);
 
 void readTest(vector<CEATest>&);
