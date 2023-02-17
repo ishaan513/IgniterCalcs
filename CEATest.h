@@ -25,7 +25,7 @@ private:
     double of, pressure, pressureRatio, temp, expanRatio, cStar, isp;
     string params[SIZE] = {"of", "pressure", "pressureRatio", "temp", "expanRatio", "cStar", "isp"};
     double values[SIZE];
-    double propVals[2];
+    double propVals[2]; // make it easier to get known prop values
     int thrust = 20; // lbf
     double pNO2 = 0.04, pETH = 0.03; // lb/in^3
     double density[2] = {pNO2, pETH};
@@ -50,7 +50,8 @@ public:
     string getParam(int);
     
     void calc();
-    double calcMassFlow(int);
+    double calcMassFlow();
+    double calcPropMassFlow(int);
     double calcOrificeArea(int);
     double calcOrificeDiameter();
     double calcThroatArea();

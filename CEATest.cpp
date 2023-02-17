@@ -12,6 +12,8 @@ CEATest::CEATest(){
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: propellant type (string), propellant (string)
+// Sets propellant to specified propellant type
 void CEATest::setFuelOx(string str, string prop){
     bool flag = false;
     if(str == "fuel" || str == "FUEL"){
@@ -27,6 +29,8 @@ void CEATest::setFuelOx(string str, string prop){
     }
 }
 
+// Parameters: propellant type (string)
+// Returns the propellant of the specified propellant type
 string CEATest::getFuelOx(string str){
     string fuelOx = "NULL";
     bool flag = false;
@@ -45,6 +49,8 @@ string CEATest::getFuelOx(string str){
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: parameter (string), value (double)
+// Sets the value to the specified parameter
 void CEATest::setVal(string str, double val){
     bool flag = false;
     for(int i = 0; i < SIZE; i++){
@@ -58,6 +64,8 @@ void CEATest::setVal(string str, double val){
     }
 }
 
+// Parameters: parameter (string)
+// Returns the value of the specified parameter
 double CEATest::getVal(string str){
     double val = -1;
     bool flag = false;
@@ -76,6 +84,8 @@ double CEATest::getVal(string str){
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: none
+// Sets values to each parameter according to user input
 void CEATest::setValues(){
     string strInput;
     double numInput;
@@ -92,6 +102,9 @@ void CEATest::setValues(){
         cin >> numInput;
         if(i == 6){
             numInput /= 9.8;
+        }
+        if(i == 5){
+            numInput *= 3.281;
         }
         setVal(params[i], numInput);
     }
@@ -126,6 +139,8 @@ void CEATest::setValues(){
 //}
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: none
+// Prints the data for a particular test in the saved vector of test objects
 void CEATest::viewTest(){
     cout << "Fuel: " << fuel << endl;
     cout << "Oxidizer: " << oxidizer << endl;
@@ -135,6 +150,8 @@ void CEATest::viewTest(){
     cout << endl;
 }
 
+// Parameters: test number (int)
+// Saves a test to the text file under the specified test number
 void CEATest::saveTest(int num){
     ofstream output;
     output.open("tests.txt", fstream::app);
@@ -159,6 +176,8 @@ void CEATest::saveTest(int num){
 //    output.close();
 //}
 
+// Parameters: test number (int)
+// Overwrites the text file with the particular test
 void CEATest::overwriteTest(int num){
     ofstream output;
     output.open("tests.txt");
@@ -172,46 +191,73 @@ void CEATest::overwriteTest(int num){
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: parameter (int)
+// Returns the parameter name
 string CEATest::getParam(int num){
     return params[num];
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: none
+// Calls the sub-calculation functions and prints the results
 void CEATest::calc(){
     propVals[OX] = getVal("of");
     propVals[FUEL] = 1;
-    cout << "Fuel Mass Flow: " << calcMassFlow(propVals[FUEL]) << " lb/in^3" << endl;
-    cout << "Oxidizer Mass Flow: " << calcMassFlow(propVals[OX]) << " lb/in^3" << endl;
+    cout << "Total Mass Flow: " << calcMassFlow() << " lb/s" << endl;
+    cout << "Fuel Mass Flow: " << calcPropMassFlow(propVals[FUEL]) << " lb/s" << endl;
+    cout << "Oxidizer Mass Flow: " << calcPropMassFlow(propVals[OX]) << " lb/s" << endl;
     cout << "Fuel Orifice Diameter: " << 2 * sqrt(calcOrificeArea(FUEL) / 3.14) << " in" << endl;
     cout << "Oxidizer Orifice Diameter: " << 2 * sqrt(calcOrificeArea(OX) / 3.14) << " in" << endl;
+    cout << "Throat Area: " << calcThroatArea() << " in^2" << endl;
+    cout << "Throat Diameter: " << (2 * sqrt(calcThroatArea() / 3.14)) / 12.0 << " in" << endl;
     //cout << "This don't work yet..." << endl;
     cout << endl;
 }
 
-double CEATest::calcMassFlow(int prop){
+// Parameters: none
+// Calculates the total mass flow
+double CEATest::calcMassFlow(){
     double massFlow = -1;
     
     massFlow = thrust / values[ISP];
-    massFlow /= (propVals[OX] + 1);
-    massFlow *= prop;
     
     return massFlow;
 }
 
+// Parameters: propellant type (int)
+// Calculates the mass flow for the specified propellant
+double CEATest::calcPropMassFlow(int prop){
+    double propMassFlow = -1;
+    
+    propMassFlow = calcMassFlow() / (propVals[OX] + 1);
+    propMassFlow *= prop;
+    
+    return propMassFlow;
+}
+
+// Parameters: propellant type (int)
+// Calculates the injection orifice area for the specified propellant
 double CEATest::calcOrificeArea(int prop){
     double orificeArea = -1;
     
-    orificeArea = calcMassFlow(propVals[prop]) / (cd * sqrt(2.0 * density[prop] * getVal("pressure")));
+    orificeArea = calcPropMassFlow(propVals[prop]) / (cd * sqrt(2.0 * density[prop] * getVal("pressure")));
     
     return orificeArea;
 }
+
+// Parameters: none
+// Calculates the throat area
 double CEATest::calcThroatArea(){
     double throatArea = -1;
+    
+    throatArea = (calcMassFlow() * getVal("cStar")) / getVal("pressure");
     
     return throatArea;
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: parameter (string)
+// Checks if the passed parameter is a valid parameter
 bool CEATest::checkParam(string str){
     bool flag = false;
     
@@ -227,9 +273,10 @@ bool CEATest::checkParam(string str){
     
     return flag;
 }
-
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: saved tests (vector), parameter (string)
+// Sorts the saved tests by the specified parameter in ascending order
 void sortByParam2(vector<CEATest>& tests, string param){
     CEATest test;
     if(test.checkParam(param)){
@@ -243,83 +290,10 @@ void sortByParam2(vector<CEATest>& tests, string param){
         cout << "Sorted by " << param << endl;
     }
 }
-
-//void sortByParam(vector<CEATest>& tests, int param){
-//    switch (param){
-//        case 0:
-//            for(int i = 0; i < tests.size() - 1; i++){
-//                for(int j = 0; j < tests.size() - 1 - i; j++){
-//                    if(tests.at(j).getVal("of") > tests.at(j+1).getVal("of")){
-//                        swap(tests.at(j), tests.at(j+1));
-//                    }
-//                }
-//            }
-//            cout << "Sorted by OF Ratio" << endl;
-//            break;
-//        case 1:
-//            for(int i = 0; i < tests.size() - 1; i++){
-//                for(int j = 0; j < tests.size() - 1 - i; j++){
-//                    if(tests.at(j).getVal("pressure") > tests.at(j+1).getVal("pressure")){
-//                        swap(tests.at(j), tests.at(j+1));
-//                    }
-//                }
-//            }
-//            cout << "Sorted by Pressure" << endl;
-//            break;
-//        case 2:
-//            for(int i = 0; i < tests.size() - 1; i++){
-//                for(int j = 0; j < tests.size() - 1 - i; j++){
-//                    if(tests.at(j).getVal("pressureRatio") > tests.at(j+1).getVal("pressureRatio")){
-//                        swap(tests.at(j), tests.at(j+1));
-//                    }
-//                }
-//            }
-//            cout << "Sorted by Pressure Ratio" << endl;
-//            break;
-//        case 3:
-//            for(int i = 0; i < tests.size() - 1; i++){
-//                for(int j = 0; j < tests.size() - 1 - i; j++){
-//                    if(tests.at(j).getVal("temp") > tests.at(j+1).getVal("temp")){
-//                        swap(tests.at(j), tests.at(j+1));
-//                    }
-//                }
-//            }
-//            cout << "Sorted by Temperature" << endl;
-//            break;
-//        case 4:
-//            for(int i = 0; i < tests.size() - 1; i++){
-//                for(int j = 0; j < tests.size() - 1 - i; j++){
-//                    if(tests.at(j).getVal("expanRatio") > tests.at(j+1).getVal("expanRatio")){
-//                        swap(tests.at(j), tests.at(j+1));
-//                    }
-//                }
-//            }
-//            cout << "Sorted by Expansion Ratio" << endl;
-//            break;
-//        case 5:
-//            for(int i = 0; i < tests.size() - 1; i++){
-//                for(int j = 0; j < tests.size() - 1 - i; j++){
-//                    if(tests.at(j).getVal("cStar") > tests.at(j+1).getVal("cStar")){
-//                        swap(tests.at(j), tests.at(j+1));
-//                    }
-//                }
-//            }
-//            cout << "Sorted by C*" << endl;
-//            break;
-//        case 6:
-//            for(int i = 0; i < tests.size() - 1; i++){
-//                for(int j = 0; j < tests.size() - 1 - i; j++){
-//                    if(tests.at(j).getVal("isp") > tests.at(j+1).getVal("isp")){
-//                        swap(tests.at(j), tests.at(j+1));
-//                    }
-//                }
-//            }
-//            cout << "Sorted by Isp" << endl;
-//            break;
-//    }
-//}
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: saved tests (vector)
+// Reads the tests in the text file into the vector of saved test objects
 void readTest(vector<CEATest>& vector){
     ifstream input;
     string empty;
@@ -346,6 +320,8 @@ void readTest(vector<CEATest>& vector){
     input.close();
 }
 
+// Parameters: saved tests (vector)
+// Clears the tests in the text file and in the vector of saved test objects
 void clearTest(vector<CEATest>& tests){
     ofstream output;
     output.open("tests.txt");
@@ -354,6 +330,8 @@ void clearTest(vector<CEATest>& tests){
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: none
+// Uses a switch statement to allow the user to access the functionality they wish to access
 void runTest(){
     vector<CEATest> tests;
     CEATest test;
@@ -487,8 +465,7 @@ void runTest(){
                     cout << "If you would like to edit another parameter, enter it now: ";
                     cin >> strInput;
                     melon = flag = edit = false;
-//                    flag = false;
-//                    edit = false;
+
                     if(strInput == "fuel" || strInput == "oxidizer"){
                         melon = true;
                     }
@@ -501,12 +478,6 @@ void runTest(){
                         }
                     }
                     
-//                    for(int i = 0; i < SIZE; i++){
-//                        if(strInput == test.getParam(i)){
-//                            flag = true;
-//                            break;
-//                        }
-//                    }
                     if(!melon && !flag){
                         edit = true;
                         break;
@@ -536,45 +507,7 @@ void runTest(){
                 cout << "Enter parameter: ";
                 cin >> strInput;
                 
-//                for(int i = 0; i < SIZE; i++){
-//                    if(test.getParam(i) == strInput){
-//                        grape = true;
-//                    }
-//                }
-//                if(!grape){
-//                    cout << strInput << " is not a recognized parameter." << endl;
-//                    cout << endl;
-//                    break;
-//                }
-                
                 sortByParam2(tests, strInput);
-                
-                
-//                if(strInput == "of"){
-//                    sortByParam(tests, OF);
-//                }
-//                else if(strInput == "pressure"){
-//                    sortByParam(tests, PRESSURE);
-//                }
-//                else if(strInput == "pressureRatio"){
-//                    sortByParam(tests, PRESSURERATIO);
-//                }
-//                else if(strInput == "temp"){
-//                    sortByParam(tests, TEMP);
-//                }
-//                else if(strInput == "expanRatio"){
-//                    sortByParam(tests, EXPANRATIO);
-//                }
-//                else if(strInput == "cStar"){
-//                    sortByParam(tests, CSTAR);
-//                }
-//                else if(strInput == "isp"){
-//                    sortByParam(tests, ISP);
-//                }
-//                else{
-//                    cout << strInput << " is not a recognized parameter.";
-//                    cout << endl;
-//                }
 
                 tests.at(0).overwriteTest(1);
                 for(int i = 1; i < tests.size(); i++){
@@ -637,6 +570,8 @@ void runTest(){
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
+// Parameters: none
+// Prints the menu
 void displayMenu(){
     cout << "1) Create new test" << endl;
     cout << "2) View existing test" << endl;
