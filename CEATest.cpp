@@ -198,20 +198,37 @@ string CEATest::getParam(int num){
 }
 /*----------------------------------------------------------------------------------------------------------------*/
 
-// Parameters: none
+// Parameters: propellants (string)
 // Calls the sub-calculation functions and prints the results
 void CEATest::calc(){
-    propVals[OX] = getVal("of");
-    propVals[FUEL] = 1;
-    cout << "Total Mass Flow: " << calcMassFlow() << " lb/s" << endl;
-    cout << "Fuel Mass Flow: " << calcPropMassFlow(propVals[FUEL]) << " lb/s" << endl;
-    cout << "Oxidizer Mass Flow: " << calcPropMassFlow(propVals[OX]) << " lb/s" << endl;
-    cout << "Fuel Orifice Diameter: " << 2 * sqrt(calcOrificeArea(FUEL) / 3.14) << " in" << endl;
-    cout << "Oxidizer Orifice Diameter: " << 2 * sqrt(calcOrificeArea(OX) / 3.14) << " in" << endl;
-    cout << "Throat Area: " << calcThroatArea() << " in^2" << endl;
-    cout << "Throat Diameter: " << (2 * sqrt(calcThroatArea() / 3.14)) / 12.0 << " in" << endl;
-    //cout << "This don't work yet..." << endl;
-    cout << endl;
+    int fuelIndex = -1, oxIndex = -1;
+    for(int i = 0; i < PSIZE; i++){
+        if(props[i] == getFuelOx("fuel")){
+            fuelIndex = i;
+        }
+        if(props[i] == getFuelOx("oxidizer")){
+            oxIndex = i;
+        }
+    }
+    
+    if(fuelIndex == -1 || oxIndex == -1){
+        cout << "You are using an unrecognized propellant type." << endl;
+        cout << endl;
+    }
+    else{
+        propRatio[oxIndex] = getVal("of");
+        propRatio[fuelIndex] = 1;
+        cout << "Total Mass Flow: " << calcMassFlow() << " lb/s" << endl;
+        cout << "Fuel Mass Flow: " << calcPropMassFlow(propRatio[fuelIndex]) << " lb/s" << endl;
+        cout << "Oxidizer Mass Flow: " << calcPropMassFlow(propRatio[oxIndex]) << " lb/s" << endl;
+        cout << "Fuel Orifice Diameter: " << 2 * sqrt(calcOrificeArea(fuelIndex) / 3.14) << " in" << endl;
+        cout << "Oxidizer Orifice Diameter: " << 2 * sqrt(calcOrificeArea(oxIndex) / 3.14) << " in" << endl;
+        cout << "Throat Area: " << calcThroatArea() << " in^2" << endl;
+        cout << "Throat Diameter: " << (2 * sqrt(calcThroatArea() / 3.14)) / 12.0 << " in" << endl;
+        //cout << "This don't work yet..." << endl;
+        cout << endl;
+    }
+    
 }
 
 // Parameters: none
@@ -229,7 +246,7 @@ double CEATest::calcMassFlow(){
 double CEATest::calcPropMassFlow(int prop){
     double propMassFlow = -1;
     
-    propMassFlow = calcMassFlow() / (propVals[OX] + 1);
+    propMassFlow = calcMassFlow() / (getVal("of") + 1);
     propMassFlow *= prop;
     
     return propMassFlow;
@@ -240,7 +257,7 @@ double CEATest::calcPropMassFlow(int prop){
 double CEATest::calcOrificeArea(int prop){
     double orificeArea = -1;
     
-    orificeArea = calcPropMassFlow(propVals[prop]) / (cd * sqrt(2.0 * density[prop] * getVal("pressure")));
+    orificeArea = calcPropMassFlow(propRatio[prop]) / (cd * sqrt(2.0 * propDensity[prop] * getVal("pressure")));
     
     return orificeArea;
 }
@@ -339,8 +356,7 @@ void runTest(){
     double numInput;
     int apple, orange;
     bool flag = false, edit = false, grape = false, melon = false;
-//    bool edit = false;
-//    bool grape = false, melon = false;
+    
     readTest(tests);
     
     cout << "*** ROCKET THING ***" << endl;
@@ -583,3 +599,4 @@ void displayMenu(){
     cout << "8) Quit" << endl;
     cout << "Enter command: ";
 }
+

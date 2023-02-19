@@ -15,8 +15,9 @@
 using namespace std;
 
 const int SIZE = 7;
+const int PSIZE = 4;
 enum param {OF, PRESSURE, PRESSURERATIO, TEMP, EXPANRATIO, CSTAR, ISP};
-enum prop {OX, FUEL};
+enum prop {NO2, ETH, LOX, METH};
 void checkFile(ifstream&, string);
 class CEATest{
 private:
@@ -25,10 +26,11 @@ private:
     double of, pressure, pressureRatio, temp, expanRatio, cStar, isp;
     string params[SIZE] = {"of", "pressure", "pressureRatio", "temp", "expanRatio", "cStar", "isp"};
     double values[SIZE];
-    double propVals[2]; // make it easier to get known prop values
-    int thrust = 20; // lbf
+    string props[PSIZE] = {"nitrous", "ethanol", "lox", "methane"};
+    double propRatio[PSIZE];
     double pNO2 = 0.04, pETH = 0.03; // lb/in^3
-    double density[2] = {pNO2, pETH};
+    double propDensity[PSIZE] = {pNO2, pETH};
+    int thrust = 20; // lbf
     double cd = 0.82; // accepted value
 public:
     CEATest();
