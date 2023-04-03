@@ -24,13 +24,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		420FD83229DA73C600BA5DF7 /* CEOutput_IPA.N2O.OF2.P70-90.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "CEOutput_IPA.N2O.OF2.P70-90.txt"; sourceTree = "<group>"; };
 		4264E3E5294552FA00D2BAA2 /* EngineCalcs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EngineCalcs; sourceTree = BUILT_PRODUCTS_DIR; };
 		4264E3E8294552FA00D2BAA2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4264E3EF2945546F00D2BAA2 /* CEAOutput.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CEAOutput.txt; sourceTree = "<group>"; };
 		4264E3F02945854A00D2BAA2 /* CEATest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEATest.h; sourceTree = "<group>"; };
 		4264E3F12945855800D2BAA2 /* CEATest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CEATest.cpp; sourceTree = "<group>"; };
-		4264E3F62946F35C00D2BAA2 /* tests.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = tests.txt; sourceTree = "<group>"; };
 		4264E42E294C3B7900D2BAA2 /* calcs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calcs.csv; sourceTree = "<group>"; };
+		42ADBC8729CA041600AC4A2D /* CEAOutput_50ETH.50H2O.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CEAOutput_50ETH.50H2O.txt; sourceTree = "<group>"; };
+		42ADBC8829CB60C600AC4A2D /* tests.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = tests.txt; path = IgniterCalcs/tests.txt; sourceTree = "<group>"; };
+		42ADBC8929CE160400AC4A2D /* CEAOutput_IPA.N2O.OF1-9.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "CEAOutput_IPA.N2O.OF1-9.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,9 +50,12 @@
 		4264E3DC294552FA00D2BAA2 = {
 			isa = PBXGroup;
 			children = (
+				42ADBC8829CB60C600AC4A2D /* tests.txt */,
+				420FD83229DA73C600BA5DF7 /* CEOutput_IPA.N2O.OF2.P70-90.txt */,
+				42ADBC8929CE160400AC4A2D /* CEAOutput_IPA.N2O.OF1-9.txt */,
+				42ADBC8729CA041600AC4A2D /* CEAOutput_50ETH.50H2O.txt */,
 				4264E3EF2945546F00D2BAA2 /* CEAOutput.txt */,
 				4264E42E294C3B7900D2BAA2 /* calcs.csv */,
-				4264E3F62946F35C00D2BAA2 /* tests.txt */,
 				4264E3F12945855800D2BAA2 /* CEATest.cpp */,
 				4264E3F02945854A00D2BAA2 /* CEATest.h */,
 				4264E3E7294552FA00D2BAA2 /* IgniterCalcs */,

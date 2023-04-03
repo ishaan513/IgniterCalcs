@@ -201,6 +201,8 @@ string CEATest::getParam(int num){
 // Parameters: propellants (string)
 // Calls the sub-calculation functions and prints the results
 void CEATest::calc(){
+    string material;
+    double tankID, testDur;
     int fuelIndex = -1, oxIndex = -1;
     for(int i = 0; i < PSIZE; i++){
         if(props[i] == getFuelOx("fuel")){
@@ -216,16 +218,65 @@ void CEATest::calc(){
         cout << endl;
     }
     else{
+        cout << "Enter your material: ";
+        cin >> material;
+        cout << "Enter your tank diameter: ";
+        cin >> tankID;
+        cout << "Enter your test duration: ";
+        cin >> testDur;
         propRatio[oxIndex] = getVal("of");
         propRatio[fuelIndex] = 1;
-        cout << "Total Mass Flow: " << calcMassFlow() << " lb/s" << endl;
-        cout << "Fuel Mass Flow: " << calcPropMassFlow(propRatio[fuelIndex]) << " lb/s" << endl;
-        cout << "Oxidizer Mass Flow: " << calcPropMassFlow(propRatio[oxIndex]) << " lb/s" << endl;
-        cout << "Fuel Orifice Diameter: " << 2 * sqrt(calcOrificeArea(fuelIndex) / 3.14) << " in" << endl;
-        cout << "Oxidizer Orifice Diameter: " << 2 * sqrt(calcOrificeArea(oxIndex) / 3.14) << " in" << endl;
-        cout << "Throat Area: " << calcThroatArea() << " in^2" << endl;
-        cout << "Throat Diameter: " << (2 * sqrt(calcThroatArea() / 3.14)) / 12.0 << " in" << endl;
-        //cout << "This don't work yet..." << endl;
+        double calcVals[14] = {
+                /* 0 - total mass flow */ calcMassFlow(),
+                /* 1 - fuel mass flow */ calcPropMassFlow(propRatio[fuelIndex]),
+                /* 2 - ox mass flow */ calcPropMassFlow(propRatio[oxIndex]),
+                /* 3 - fuel vol flow */ calcPropVolFlow(fuelIndex),
+                /* 4 - ox vol flow */ calcPropVolFlow(oxIndex),
+                /* 5 - fuel orifice */ 2 * sqrt(calcOrificeArea(fuelIndex, FUEL) / M_PI),
+                /* 6 - ox orifice */ 2 * sqrt(calcOrificeArea(oxIndex, OX) / M_PI),
+                /* 7 - throat area */ calcThroatArea(),
+                /* 8 - throat diameter */ 2 * sqrt(calcThroatArea() / M_PI),
+                /* 9 - chamber area */ 3 * calcThroatArea(),
+                /* 10 - chamber diameter */ 2 * sqrt((3 * calcThroatArea()) / M_PI),
+                /* 11 - fuel tank length */ fuelTankSize(testDur, tankID, fuelIndex),
+                /* 12 - fuel consumption */ fuelTankSize(testDur, tankID, fuelIndex) / testDur,
+                /* 13 - fuel volume */ calcPropVolFlow(fuelIndex) * testDur
+        };
+        
+        string calcs[14] = {
+                /*total mass flow*/ "totalMassFlow",
+                /*fuel mass flow*/ "fuelMassFlow",
+                /*ox mass flow*/ "oxMassFlow",
+                /*fuel vol flow*/ "fuelVolFlow",
+                /*ox vol flow*/ "oxVolFlow",
+                /*fuel orifice*/ "fuelOrifice",
+                /*ox orifice*/ "oxOrifice",
+                /*throat area*/ "throatArea",
+                /*throat diameter*/ "throatDiameter",
+                /*chamber area*/ "chamberArea",
+                /*chamber diameter*/ "chamberDiameter",
+                /*fuel tank length*/ "tankLength",
+                /*fuel consumption*/ "fuelConsumption",
+                /*fuel volume*/ "fuelVolume"
+        };
+        
+        cout << endl;
+        cout << fixed << setprecision(4);
+        cout << "Total Mass Flow:           " << calcVals[0] << " lb/s" << endl;
+        cout << "Fuel Mass Flow:            " << calcVals[1] << " lb/s" << endl;
+        cout << "Oxidizer Mass Flow:        " << calcVals[2] << " lb/s" << endl;
+        cout << "Fuel Volume Flow Rate:     " << calcVals[3] << " in^3/s" << endl;
+        cout << "Oxidizer Volume Flow Rate: " << calcVals[4] << " in^3/s" << endl;
+        cout << "Fuel Orifice Diameter:     " << calcVals[5] << " in" << endl;
+        cout << "Oxidizer Orifice Diameter: " << calcVals[6] << " in" << endl;
+        cout << "Throat Area:               " << calcVals[7] << " in^2" << endl;
+        cout << "Throat Diameter:           " << calcVals[8] << " in" << endl;
+        cout << "Chamber Area:              " << calcVals[9] << " in^2" << endl;
+        cout << "Chamber Diameter:          " << calcVals[10] << " in" << endl;
+        cout << "Temperature Analysis:      " << tempAnalysis(material) << endl;
+        cout << "Fuel Tank Length:          " << calcVals[11] << " in" << endl;
+        cout << "Fuel Consumption:          " << calcVals[12] << " in/s" << endl;
+        cout << "Total Fuel Volume:         " << calcVals[13] << " in^3" << endl;
         cout << endl;
     }
     
@@ -241,9 +292,9 @@ double CEATest::calcMassFlow(){
     return massFlow;
 }
 
-// Parameters: propellant type (int)
+// Parameters: propellant ratio (double)
 // Calculates the mass flow for the specified propellant
-double CEATest::calcPropMassFlow(int prop){
+double CEATest::calcPropMassFlow(double prop){
     double propMassFlow = -1;
     
     propMassFlow = calcMassFlow() / (getVal("of") + 1);
@@ -254,10 +305,11 @@ double CEATest::calcPropMassFlow(int prop){
 
 // Parameters: propellant type (int)
 // Calculates the injection orifice area for the specified propellant
-double CEATest::calcOrificeArea(int prop){
+double CEATest::calcOrificeArea(int prop, int tank){
     double orificeArea = -1;
+    double tankPress = tankPressure[tank];
     
-    orificeArea = calcPropMassFlow(propRatio[prop]) / (cd * sqrt(2.0 * propDensity[prop] * getVal("pressure")));
+    orificeArea = calcPropMassFlow(propRatio[prop]) / (cd * sqrt(2.0 * propDensity[prop] * (tankPress - getVal("pressure"))));
     
     return orificeArea;
 }
@@ -267,10 +319,78 @@ double CEATest::calcOrificeArea(int prop){
 double CEATest::calcThroatArea(){
     double throatArea = -1;
     
-    throatArea = (calcMassFlow() * getVal("cStar")) / getVal("pressure");
+    throatArea = ((calcMassFlow() * getVal("cStar")) / getVal("pressure")) / 32.2;
     
     return throatArea;
 }
+
+// Parameters: material of engine (string)
+// Determines if the engine will melt based on the melting point of the material and the combustion temperature
+string CEATest::tempAnalysis(string material){
+    string analysis = "UNRECOGNIZED MATERIAL";
+    double safeTemp = -1;
+    double combTemp = values[TEMP] - 273.15;
+    for(int i = 0; i < MSIZE; i++){
+        if(materials[i] == material){
+            safeTemp = matProp[i];
+            break;
+        }
+    }
+    if(safeTemp == -1){
+        return analysis;
+    }
+    else if(safeTemp >= (combTemp)){
+        analysis = "SAFE - YOUR ENGINE WILL NOT MELT";
+    }
+    else{
+        analysis = "UNSAFE - YOUR ENGINE WILL MELT";
+    }
+    return analysis;
+}
+
+// Parameters: test duration (double) and pipe inner diameter (double)
+// Calculates the length, in inches, of pipe needed for a given test duration and pipe inner diameter
+double CEATest::fuelTankSize(double testDuration, double pipeID, int index){
+    double length = -1;
+    double volFlow = calcPropMassFlow(propRatio[index]) / propDensity[index];
+    double pipeArea = pow((pipeID / 2), 2) * M_PI;
+    double lengthPerSec = volFlow / pipeArea;
+    length = lengthPerSec * testDuration;
+    
+    return length;
+}
+
+// Parameters: propellant index
+// Calculates the volumetric flow rate of the passed propellant
+double CEATest::calcPropVolFlow(int prop){
+    return calcPropMassFlow(propRatio[prop]) / propDensity[prop];
+}
+
+string CEATest::unitConvert(string calc, string unit){
+    string newUnit = "NEW UNITS";
+    
+    return newUnit;
+}
+
+
+// this doesn't work...yet lol
+//string CEATest::optimalTankSize(double testDur, int index){
+//    string size;
+//    double volumeFlowRate;
+//    int volume;
+//    int count = 0;
+//    volumeFlowRate = calcPropMassFlow(propRatio[index]) / propDensity[index];
+//    volume = ceil(volumeFlowRate * testDur);
+//    for(int i = 0; i < volume; i++){
+//        if(volume % i == 0){
+//            count++;
+//        }
+//    }
+//
+//    double possDiameter[count], possLength[count];
+//
+//    return size;
+//}
 /*----------------------------------------------------------------------------------------------------------------*/
 
 // Parameters: parameter (string)
